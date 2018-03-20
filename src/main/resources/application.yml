@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: masd-events
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
+  jpa:
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://ec2-54-228-189-223.eu-west-1.compute.amazonaws.com:5432/d6dmnkgrq4jsp1?sslmode=require
+    username: qctfvhqkkhwtcp
+    password: 29d9f607026cd2debb59fb2755a099b5568246a693b89569f3459440425c9581
+    schema: classpath:schema.sql
+    driver-class-name: org.postgresql.Driver
+
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        healthCheckPath: /my-health-check
+        healthCheckInterval: 20s
+        enabled: true
+        instanceId: ${spring.application.name}:${random.value}
+server:
+  port: 8080
+
+mybatis:
+  typeAliasesPackage: com.masd.event.models
+  mybatis:
+    mapperLocations: classpath*:**/mappers/*.xml
